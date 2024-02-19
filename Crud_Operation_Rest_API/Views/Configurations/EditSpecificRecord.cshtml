@@ -1,0 +1,63 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Content/js/jquery-3.7.1.min.js"></script>
+    <script src="~/Content/js/bootstrap.bundle.min.js"></script>
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <title>ShowSpecific</title>
+    <script>
+        $(document).ready(function () {
+            $("#btn").click(function () {
+                var ci = $("#configid").val().trim();
+                var msg = $("#textmessage").val();
+                $.ajax({
+                    type: 'PUT',
+                    url: 'https://localhost:44353/api/Values/' + ci,
+                    dataType: 'json',
+                    contentType: 'application/json;charset=utf-8',
+                    success: function (product) {
+                        alert(product)
+                        var msg = "<b>Id:</b> " + product.configid + "<br><br><b> Name: </b>" + product.configname;
+                        $("#dv").html(msg);
+                    },
+                    error: function (err) {
+                        alert(err.responseText);
+                    }
+                })
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <h2>Update Remark</h2>
+                <hr />
+                <span class="form-control">
+                    Config to Update(configid)
+                    <input type="text" name="configid" id="configid" />
+                </span>
+                <br>
+                <span class="form-control">
+                    Remark
+                    <textarea name="textmessage" id="textmessage"></textarea>
+                </span>
+                <div id="dv"></div>
+                <br />
+                <input type="submit" value="Submit" id="btn" class="btn btn-primary" />
+                <a href="/Configurations/ShowAll" class="btn btn-secondary">Show All record</a>
+
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+    </div>
+</body>
+</html>

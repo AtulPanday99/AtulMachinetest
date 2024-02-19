@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Content/js/jquery-3.7.1.min.js"></script>
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <title>ShowSpecific</title>
+    <script>
+        $(document).ready(function () {
+            $("#btn").click(function () {
+                var ci = $("#configid").val().trim();
+                $.ajax({
+                    type: 'GET',
+                    url: 'https://localhost:44320/api/Values/' + ci,
+                    dataType: 'json',
+                    contentType: 'application/json;charset=utf-8',
+                    success: function (product) {
+                        // alert(product)
+                        var msg = "<b>Id:</b> " + product.configid + "<br><br><b> Name: </b>" + product.configname;
+                        $("#dv").html(msg);
+
+                    },
+                    error: function (err) {
+                        alert(err.responseText);
+                    }
+                })
+            });
+        });
+    </script>
+</head>
+<body>
+    <div style="margin-left:550px;margin-top:20px;">
+        <input type="number" placeholder="Enter configid" id="configid" />
+        <input type="button" value="Find" id="btn" class="btn btn-primary" />
+
+        <div id="dv" style="min-height:100px;width:250px;border:2px solid;margin-top:5px;">
+        </div>
+        <br />
+        <a href="Index" class="btn btn-secondary">Add Product</a>&nbsp;
+        <a href="ShowAll" class="btn btn-primary">Show Record</a>
+    </div>
+</body>
+</html>
+

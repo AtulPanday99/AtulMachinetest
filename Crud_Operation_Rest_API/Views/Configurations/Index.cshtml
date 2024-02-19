@@ -1,0 +1,59 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Content/js/jquery-3.7.1.min.js"></script>
+    <script src="~/Content/js/bootstrap.bundle.min.js"></script>
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Index</title>
+    <script>
+        $(document).ready(function () {
+            $("#btn").click(function () {
+                var cn;
+                cn = $("#configname").val().trim();
+                var dt = { ConfigName: cn };
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://localhost:44320/api/Values',
+                    data: JSON.stringify(dt),
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    success: function (res) {
+                        alert(res);
+                    },
+                    error: function (er) {
+                        alert(er.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <h2>Fetch Config</h2>
+                <a href="/Configurations/ShowAll" class="btn btn-primary">Show All record</a>
+                <hr />
+                <span class="form-control">
+                    Config to Load(configid)
+                    <input type="text" name="configname" id="configname" />
+                </span>
+                <br />
+                <input type="submit" value="Submit" id="btn" class="btn btn-primary" />
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+    </div>
+</body>
+</html>
+
